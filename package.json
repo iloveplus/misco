@@ -11,7 +11,8 @@
     "dev": "turbo run dev",
     "docs:start": "dumi dev",
     "docs:build": "dumi build",
-    "docs:deploy": "gh-pages -d docs-dist"
+    "docs:deploy": "gh-pages -d docs-dist",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
   "devDependencies": {
     "@umijs/fabric": "^2.8.1",
@@ -19,6 +20,18 @@
     "turbo": "^1.4.2",
     "gh-pages": "^3.0.0",
     "lint-staged": "^10.0.7",
-    "prettier": "^2.2.1"
+    "prettier": "^2.2.1",
+    "yorkie": "^2.0.0"
+  },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{js,jsx,less,md,json}": [
+      "prettier --write"
+    ],
+    "*.ts?(x)": [
+      "prettier --parser=typescript --write"
+    ]
   }
 }

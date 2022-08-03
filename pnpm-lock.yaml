@@ -10,6 +10,7 @@ importers:
       lint-staged: ^10.0.7
       prettier: ^2.2.1
       turbo: ^1.4.2
+      yorkie: ^2.0.0
     devDependencies:
       '@umijs/fabric': registry.npmmirror.com/@umijs/fabric/2.12.2
       dumi: registry.npmmirror.com/dumi/1.1.47
@@ -17,6 +18,7 @@ importers:
       lint-staged: registry.npmmirror.com/lint-staged/10.5.4
       prettier: registry.npmmirror.com/prettier/2.7.1
       turbo: registry.npmmirror.com/turbo/1.4.2
+      yorkie: registry.npmmirror.com/yorkie/2.0.0
 
 packages:
 
@@ -5197,6 +5199,21 @@ packages:
       strip-eof: registry.npmmirror.com/strip-eof/1.0.0
     dev: true
 
+  registry.npmmirror.com/execa/0.8.0:
+    resolution: {integrity: sha512-zDWS+Rb1E8BlqqhALSt9kUhss8Qq4nN3iof3gsOdyINksElaPyNBtKUMTR62qhvgVWR0CqCX7sdnKe4MnUbFEA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/execa/-/execa-0.8.0.tgz}
+    name: execa
+    version: 0.8.0
+    engines: {node: '>=4'}
+    dependencies:
+      cross-spawn: registry.npmmirror.com/cross-spawn/5.1.0
+      get-stream: registry.npmmirror.com/get-stream/3.0.0
+      is-stream: registry.npmmirror.com/is-stream/1.1.0
+      npm-run-path: registry.npmmirror.com/npm-run-path/2.0.2
+      p-finally: registry.npmmirror.com/p-finally/1.0.0
+      signal-exit: registry.npmmirror.com/signal-exit/3.0.7
+      strip-eof: registry.npmmirror.com/strip-eof/1.0.0
+    dev: true
+
   registry.npmmirror.com/execa/1.0.0:
     resolution: {integrity: sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/execa/-/execa-1.0.0.tgz}
     name: execa
@@ -8095,6 +8112,13 @@ packages:
       is-core-module: registry.npmmirror.com/is-core-module/2.9.0
       semver: registry.npmmirror.com/semver/7.3.7
       validate-npm-package-license: registry.npmmirror.com/validate-npm-package-license/3.0.4
+    dev: true
+
+  registry.npmmirror.com/normalize-path/1.0.0:
+    resolution: {integrity: sha512-7WyT0w8jhpDStXRq5836AMmihQwq2nrUVQrgjvUo/p/NZf9uy/MeJ246lBJVmWuYXMlJuG9BNZHF0hWjfTbQUA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/normalize-path/-/normalize-path-1.0.0.tgz}
+    name: normalize-path
+    version: 1.0.0
+    engines: {node: '>=0.10.0'}
     dev: true
 
   registry.npmmirror.com/normalize-path/3.0.0:
@@ -11039,6 +11063,13 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
+  registry.npmmirror.com/strip-indent/2.0.0:
+    resolution: {integrity: sha512-RsSNPLpq6YUL7QYy44RnPVTn/lcVZtb48Uof3X5JLbF4zD/Gs7ZFDv2HWol+leoQN2mT86LAzSshGfkTlSOpsA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/strip-indent/-/strip-indent-2.0.0.tgz}
+    name: strip-indent
+    version: 2.0.0
+    engines: {node: '>=4'}
+    dev: true
+
   registry.npmmirror.com/strip-indent/3.0.0:
     resolution: {integrity: sha512-laJTa3Jb+VQpaC6DseHhF7dXVqHTfJPCRDaEbid/drOhgitgYku/letMUqOXFoWV0zIIUbjpdH2t+tYj4bQMRQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/strip-indent/-/strip-indent-3.0.0.tgz}
     name: strip-indent
@@ -12382,6 +12413,19 @@ packages:
     name: yargs-parser
     version: 20.2.9
     engines: {node: '>=10'}
+    dev: true
+
+  registry.npmmirror.com/yorkie/2.0.0:
+    resolution: {integrity: sha512-jcKpkthap6x63MB4TxwCyuIGkV0oYP/YRyuQU5UO0Yz/E/ZAu+653/uov+phdmO54n6BcvFRyyt0RRrWdN2mpw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/yorkie/-/yorkie-2.0.0.tgz}
+    name: yorkie
+    version: 2.0.0
+    engines: {node: '>=4'}
+    requiresBuild: true
+    dependencies:
+      execa: registry.npmmirror.com/execa/0.8.0
+      is-ci: registry.npmmirror.com/is-ci/1.2.1
+      normalize-path: registry.npmmirror.com/normalize-path/1.0.0
+      strip-indent: registry.npmmirror.com/strip-indent/2.0.0
     dev: true
 
   registry.npmmirror.com/zwitch/1.0.5:
