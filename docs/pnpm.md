@@ -22,3 +22,48 @@
 * 如果您使用 --preserve-symlinks 标志运行 Node.js。
 
 `pnp` - 没有 node_modules。 Plug'n'Play 是一种 Yarn Berry 使用的创新的 Node 依赖策略。 当使用 pnp 作为您的链接器时，建议同时将 symlink 设置为 false。
+
+`pnpm`使用软链与平铺目录来构建一个嵌套结构。`node_modules` 中每个包的每个文件都是来自内容可寻址存储的硬链接
+
+## pnpm 安装nodejs
+```bash
+pnpm env use --global latest
+pnpm env use --global lts
+pnpm env use --global 16
+```
+
+## 执行指定目录命令
+```bash
+pnpm --filter @misro/core build
+pnpm --filter './packages/**' build
+```
+
+Command	Meaning
+```bash
+pnpm add sax	#保存到 dependencies
+pnpm add -D sax	#保存到 devDependencies
+pnpm add -O sax	#保存到 optionalDependencies
+pnpm add -g sax	#Install package globally
+pnpm add sax@next	#从 next 标签下安装
+pnpm add sax@3.0.0	#安装指定版本 3.0.0
+
+# 将每个包中的 typescript 更新为最新版本
+pnpm --recursive update typescript@latest
+
+pnpm audit #检查已安装包的已知安全问题, --fix: 强制将不易受攻击的版本，添加覆盖到 package.json 文件中
+pnpm outdated #检查过期的 packages。 此命令可以通过提供参数来限制为已安装 packages的一个子集(支持 patterns)。
+pnpm list -r #以一个树形结构输出所有的已安装package的版本及其依赖，执行该命令于子目录所有package 中，或者如果执行在一个工作空间时，在工作空间的所有package执行
+```
+
+## 锁定依赖包版本号
+package.json
+```js
+{
+  "pnpm": {
+    "overrides": {
+      "lodash@<2.1.0": "^2.1.0"
+    }
+  }
+}
+```
+
