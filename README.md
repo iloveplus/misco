@@ -1,21 +1,31 @@
-# dumi app
+# misro
 
-## Getting Started
-
-Install dependencies,
-
+## 新建安装包
 ```bash
-$ npm i
+$ npx create-father test
 ```
 
-Start the dev server,
+执行构建：
 
+ 执行全量构建并 watch 变更做增量构建，仅支持 esm/cjs 产物
 ```bash
-$ npm start
+$ npx father dev
 ```
 
-Build site app,
-
+# 执行全量构建
 ```bash
-$ npm run build
+$ npx father build
 ```
+
+# 执行依赖预打包
+```bash
+$ npx father prebundle
+```
+
+执行项目检查：
+
+# 检查项目的潜在问题
+```bash
+$ npx father doctor
+```
+验证产物并发布 NPM 包。
