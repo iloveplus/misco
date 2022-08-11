@@ -41,12 +41,12 @@
   },
   "'repository'": {
     "type": "git",
-    "url": "git+https://github.com/iloveplus/misro.git"
+    "url": "git+https://github.com/iloveplus/misco.git"
   },
   "author": "xuhang",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/iloveplus/misro/issues"
+    "url": "https://github.com/iloveplus/misco/issues"
   },
-  "homepage": "https://github.com/iloveplus/misro#readme"
+  "homepage": "https://github.com/iloveplus/misco#readme"
 }

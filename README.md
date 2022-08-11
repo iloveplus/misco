@@ -1,4 +1,4 @@
-# misro
+# misco
 
 ## 新建安装包
 ```bash

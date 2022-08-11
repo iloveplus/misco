@@ -34,7 +34,7 @@ pnpm env use --global 16
 
 ## 执行指定目录命令
 ```bash
-pnpm --filter @misro/core build
+pnpm --filter @misco/core build
 pnpm --filter './packages/**' build
 ```
 

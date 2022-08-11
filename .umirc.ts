@@ -3,7 +3,7 @@ import { defineConfig } from 'dumi';
 
 
 export default defineConfig({
-  title: 'Misro',
+  title: 'Misco',
   favicon: '/logo.png',
   logo: '/logo.png',
   mode: 'site',
