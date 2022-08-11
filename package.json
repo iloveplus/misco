@@ -33,5 +33,15 @@
     "*.ts?(x)": [
       "prettier --parser=typescript --write"
     ]
-  }
+  },
+  "'repository'": {
+    "type": "git",
+    "url": "git+https://github.com/iloveplus/misro.git"
+  },
+  "author": "xuhang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/iloveplus/misro/issues"
+  },
+  "homepage": "https://github.com/iloveplus/misro#readme"
 }
