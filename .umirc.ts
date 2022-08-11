@@ -20,7 +20,18 @@ export default defineConfig({
     }
   ],
   sitemap: {
-    hostname: 'www.ucunn.cn'
-  }
+    hostname: 'www.xuzm.cn'
+  },
+  extraBabelPlugins: [
+    [
+      'import',
+      {
+        libraryName: 'antd',
+        libraryDirectory: 'lib',
+        style: true,
+      },
+      'antd',
+    ],
+  ],
   // more config: https://d.umijs.org/config
 });

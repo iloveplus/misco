@@ -29,3 +29,9 @@ $ npx father prebundle
 $ npx father doctor
 ```
 验证产物并发布 NPM 包。
+
+# 发包
+ ```bash
+ nrm use npm
+ pnpm --filter './packages/**' publish --tag test
+ ```
