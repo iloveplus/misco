@@ -1,5 +1,5 @@
 {
-  "name": "@misro-core",
+  "name": "@misco/core",
   "version": "0.0.1",
   "description": "schema渲染引擎",
   "main": "dist/cjs/index.js",
@@ -14,6 +14,7 @@
   "authors": [
     "xuhang"
   ],
+  "license": "MIT",
   "files": [
     "dist",
     "compiled"
