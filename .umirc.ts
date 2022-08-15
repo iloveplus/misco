@@ -20,7 +20,7 @@ export default defineConfig({
     }
   ],
   sitemap: {
-    hostname: 'www.xuzm.cn'
+    hostname: 'https://www.xuzm.cn'
   },
   extraBabelPlugins: [
     [
