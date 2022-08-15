@@ -1,0 +1,41 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  build-docs:
+    name: deploy docs
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16]
+        
+    steps:
+      - name: Checkout Repo
+      - uses: actions/checkout@v3
+      
+      - uses: pnpm/action-setup@v2.2.2
+        with:
+          version: 7
+          
+      - name: Setup Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+          
+      - name: Install Dependencies 
+        run: pnpm install
+        
+      - name: build
+        run: pnpm run docs:build
+        
+      - name: Deploy Action
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_TOKEN }}
+          publish_dir: ./docs-dist
+          force_orphan: true
