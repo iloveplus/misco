@@ -9,7 +9,7 @@ export default defineConfig({
   mode: 'site',
   publicPath: './',
   history: {
-    type: 'hash'
+    type: 'browser'
   },
   locales: [['zh-CN', '中文']],
   outputPath: 'docs-dist',

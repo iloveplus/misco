@@ -11,7 +11,7 @@
     "clean": "rm -rf pnpm-lock.yaml node_modules ./packages/*/node_modules ./packages/*/dist",
     "dev": "turbo run dev",
     "docs:start": "dumi dev",
-    "docs:build": "dumi build",
+    "docs:build": "dumi build && cp CNAME docs-dist",
     "docs:deploy": "gh-pages -d docs-dist",
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
