@@ -1,9 +1,23 @@
 {
+  "compileOnSave": false,
   "compilerOptions": {
+    "module": "ESNext",
+    "target": "ES6",
     "jsx": "react",
-    "strict": true,
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "DOM"],
     "declaration": true,
+    "sourceMap": true,
+    "allowJs": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "noImplicitThis": true,
+    "noImplicitAny": true,
     "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
     "baseUrl": "./"
-  }
+  },
+  "include": ["src", "typings.d.ts"],
+  "exclude": ["node_modules", "dist"]
 }
