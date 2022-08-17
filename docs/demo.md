@@ -2,11 +2,12 @@
   title: demo
   order: 1
   toc: content
+  sidemenu: false
 ---
 
 ```jsx
 import React from 'react';
-import SchemaRender from '@misco/core';
+import SchemaRender, { useForm } from '@misco/core';
 
 const Demo = () => {
   const schema = {
@@ -18,6 +19,7 @@ const Demo = () => {
         properties: {
           input: {
             title: '简单输入框',
+            description: '这是描述信息',
             type: 'string',
             placeholder: '昵称',
           },
@@ -237,7 +239,14 @@ const Demo = () => {
     },
   };
 
-  return <SchemaRender schema={schema} />;
+  const field = useForm({
+    watch: {
+      'AllString.input': (v, k) => console.log('watch', k, v),
+    },
+  });
+  console.log(field, '======');
+
+  return <SchemaRender schema={schema} field={field} hasSubmitBtn onFinish={console.log} />;
 };
 
 export default Demo;

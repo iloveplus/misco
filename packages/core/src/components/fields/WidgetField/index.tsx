@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { IFormRender } from 'typings';
+import { IField } from 'typings';
 
 function WidgetField<DecoratorProps, ComponentProps>({
   schema = {},
@@ -11,7 +11,7 @@ function WidgetField<DecoratorProps, ComponentProps>({
   isPreview,
   disabled,
   ...options
-}: IFormRender<DecoratorProps, ComponentProps>): React.FC {
+}: IField<DecoratorProps, ComponentProps>) {
   return <div>WidgetField</div>;
 }
 

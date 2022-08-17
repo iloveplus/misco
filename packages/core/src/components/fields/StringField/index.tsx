@@ -1,18 +1,16 @@
 import React from 'react';
 import { Button, Checkbox, Form, Input } from 'antd';
-import { IFormRender } from 'typings';
+import { IField } from 'typings';
+import FormItemWidget from '../../widgets/FormItem';
 
-function StringField<DecoratorProps, ComponentProps>({
-  schema = {},
-  schemaUi = {},
-  layout = {},
-  field,
-  metaKey,
-  isPreview,
-  disabled,
-  ...options
-}: IFormRender<DecoratorProps, ComponentProps>): React.FC {
-  return <div>StringField</div>;
+function StringField<DecoratorProps, ComponentProps>(props: IField<DecoratorProps, ComponentProps>) {
+  const { widget, props: compProps = {} } = props;
+
+  return (
+    <FormItemWidget {...props}>
+      <Input {...compProps} />
+    </FormItemWidget>
+  );
 }
 
 export default StringField;

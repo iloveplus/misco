@@ -1,25 +1,36 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { Button, Form } from 'antd';
 import { IFormRender } from 'typings';
 import FieldRender from './components/fields';
+import useForm from './hooks/useForm';
 
-function FormRender<DecoratorProps, ComponentProps>(
-  props: IFormRender<DecoratorProps, ComponentProps>,
-): React.FC {
-  const { onFinish, layout = {} } = props;
+function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<DecoratorProps, ComponentProps>) {
+  const { onFinish, field = useForm(), hasSubmitBtn, layout = {} } = props;
 
   return (
     <Form.Provider>
       <Form
         {...layout}
+        form={field}
         name="schemaForm"
-        onValuesChange={console.log}
-        onFieldsChange={(...res) => console.log('onFieldsChange...', ...res)}
+        requiredMark
+        onFinish={onFinish}
+        // onValuesChange={console.log}
+        // onFieldsChange={(...res) => console.log('onFieldsChange...', ...res)}
       >
         <FieldRender {...props} />
+        {hasSubmitBtn && (
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+          </Form.Item>
+        )}
       </Form>
     </Form.Provider>
   );
 }
 
 export default FormRender;
+
+export { useForm };

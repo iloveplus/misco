@@ -16,7 +16,7 @@ function FieldRender<DecoratorProps, ComponentProps>({
   isPreview,
   disabled,
   ...options
-}: IFormRender<DecoratorProps, ComponentProps>): React.FC {
+}: IFormRender<DecoratorProps, ComponentProps>) {
   const {
     type,
     readOnly,

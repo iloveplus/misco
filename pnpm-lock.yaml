@@ -5,6 +5,8 @@ importers:
   .:
     specifiers:
       '@changesets/cli': ^2.24.3
+      '@types/react': ^18.0.17
+      '@types/react-dom': ^18.0.6
       '@umijs/fabric': ^2.8.1
       antd: ^4.22.4
       babel-plugin-import: ^1.13.5
@@ -19,6 +21,8 @@ importers:
       yorkie: ^2.0.0
     devDependencies:
       '@changesets/cli': 2.24.3
+      '@types/react': 18.0.17
+      '@types/react-dom': 18.0.6
       '@umijs/fabric': 2.12.2
       antd: 4.22.5_t2hpz4cb4xaae2tnobxorh3tv4
       babel-plugin-import: 1.13.5
@@ -2374,6 +2378,12 @@ packages:
     resolution: {integrity: sha512-Oqc0RY4fggGA3ltEgyPLc3IV9T73IGoWjkONbsyJ3ZBn+UPPCYpU2ec0i3cEbJuEdZtkqcCF2l1zf2pBdgUGSg==}
     dependencies:
       '@types/react': 16.14.30
+    dev: true
+
+  /@types/react-dom/18.0.6:
+    resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
+    dependencies:
+      '@types/react': 18.0.17
     dev: true
 
   /@types/react-router-config/5.0.2:

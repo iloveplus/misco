@@ -1,15 +1,6 @@
-export declare type SchemaType =
-  | 'string'
-  | 'number'
-  | 'boolean'
-  | 'integer'
-  | 'object'
-  | 'array'
-  | null;
+export declare type SchemaType = 'string' | 'number' | 'boolean' | 'integer' | 'object' | 'array' | null;
 
-export declare type SchemaEnum = Array<
-  string | number | { label: string; value: any; [key: string]: any }
->;
+export declare type SchemaEnum = Array<string | number | { label: string; value: any; [key: string]: any }>;
 
 export declare type SchemaItems<DecoratorProps, ComponentProps> = any;
 
@@ -85,6 +76,7 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   urlChecked?: boolean | { reg: RegExp; errText: string };
   metaKey?: string[];
   colSpan?: number;
+  hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;
   onFinish?: (values: any) => void;
   onChange?: () => void;
@@ -95,4 +87,11 @@ export interface IObjectField<DecoratorProps, ComponentProps>
     IFormRender<DecoratorProps, ComponentProps> {
   required: boolean | string[];
   children?: any[];
+}
+
+export interface IField<DecoratorProps, ComponentProps>
+  extends Exclude<ISchema, 'required'>,
+    IFormRender<DecoratorProps, ComponentProps> {
+  required: boolean;
+  children?: any;
 }

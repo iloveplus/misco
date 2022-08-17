@@ -2,12 +2,10 @@ import React from 'react';
 import { IObjectField } from 'typings';
 import FieldRender from '..';
 
-function ObjectField<DecoratorProps, ComponentProps>(
-  props: IObjectField<DecoratorProps, ComponentProps>,
-): React.FC {
+function ObjectField<DecoratorProps, ComponentProps>(props: IObjectField<DecoratorProps, ComponentProps>) {
   const { metaKey, required, properties = {}, decoratorProps = {}, ...res } = props;
 
-  console.log('ObjectField...', props);
+  // console.log('ObjectField...', props);
   return (
     <div>
       {Object.entries(properties).map(([key, schema]) => {
