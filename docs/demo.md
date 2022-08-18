@@ -13,6 +13,29 @@ const Demo = () => {
   const schema = {
     type: 'object',
     properties: {
+      allBoolean: {
+        title: 'boolean类',
+        type: 'array',
+        items: {
+          type: 'object',
+          properties: {
+            radio: {
+              title: '是否通过',
+              type: 'boolean',
+            },
+            switch: {
+              title: '开关控制',
+              type: 'boolean',
+              widget: 'switch',
+            },
+            textarea: {
+              title: '简单文本编辑框',
+              type: 'string',
+              format: 'textarea',
+            },
+          },
+        },
+      },
       AllString: {
         title: 'string类',
         type: 'object',
@@ -22,6 +45,9 @@ const Demo = () => {
             description: '这是描述信息',
             type: 'string',
             placeholder: '昵称',
+            format: 'image()',
+            default:
+              'https://gw.alicdn.com/imgextra/i4/325900186/O1CN0136oOJw1DFENPllQ8C_!!0-saturn_solar.jpg_300x300q90.jpg',
           },
           textarea: {
             title: '简单文本编辑框',
@@ -37,7 +63,8 @@ const Demo = () => {
             title: '图片展示',
             type: 'string',
             format: 'image',
-            default: 'http://placekitten.com/200/300',
+            default:
+              'https://gw.alicdn.com/bao/uploaded/i4/4203127928/O1CN01xWDywE28R4mG2LP9X_!!0-item_pic.jpg_300x300q90.jpg',
           },
           uploader: {
             title: '上传文件',
@@ -156,21 +183,6 @@ const Demo = () => {
           },
         },
       },
-      allBoolean: {
-        title: 'boolean类',
-        type: 'object',
-        properties: {
-          radio: {
-            title: '是否通过',
-            type: 'boolean',
-          },
-          switch: {
-            title: '开关控制',
-            type: 'boolean',
-            widget: 'switch',
-          },
-        },
-      },
       allEnum: {
         title: '选择类',
         type: 'object',
@@ -244,7 +256,7 @@ const Demo = () => {
       'AllString.input': (v, k) => console.log('watch', k, v),
     },
   });
-  console.log(field, '======');
+  // console.log(field, '======');
 
   return <SchemaRender schema={schema} field={field} hasSubmitBtn onFinish={console.log} />;
 };

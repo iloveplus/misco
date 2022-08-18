@@ -3,7 +3,7 @@ import { Form } from 'antd';
 import { IField } from 'typings';
 
 function FormItemWidget<DecoratorProps, ComponentProps>(props: IField<DecoratorProps, ComponentProps>) {
-  const { title, description, children, metaKey } = props;
+  const { title, description, children, metaKey, decoratorProps = {} } = props;
 
   return React.createElement(
     Form.Item,
@@ -11,6 +11,7 @@ function FormItemWidget<DecoratorProps, ComponentProps>(props: IField<DecoratorP
       label: title,
       tooltip: !!description && { title: description, icon: undefined },
       name: metaKey,
+      ...decoratorProps,
     },
     children,
   );

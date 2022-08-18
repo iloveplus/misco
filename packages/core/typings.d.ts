@@ -1,3 +1,8 @@
+import { FormInstance } from 'antd/es/form/Form';
+import { NamePath } from 'antd/es/form/interface';
+
+export { NamePath };
+
 export declare type SchemaType = 'string' | 'number' | 'boolean' | 'integer' | 'object' | 'array' | null;
 
 export declare type SchemaEnum = Array<string | number | { label: string; value: any; [key: string]: any }>;
@@ -61,20 +66,30 @@ export declare type ISchema<DecoratorProps = any, ComponentProps = any> = String
   else?: ISchema<DecoratorProps, ComponentProps>;
 
   // 非标准
-  widgets?: string;
+  widget?: string;
   props?: ComponentProps;
   decoratorProps?: DecoratorProps;
   hidden?: boolean | string;
 }>;
 
+export interface IFormField extends FormInstance {
+  getValue<T>(name: NamePath): T;
+  setValue<T>(name: NamePath, value: T): void;
+  getValues<T>(names: NamePath[], filterFunc?: (meta: any) => boolean): T;
+  setValues(obj: any): void;
+  setValues<T>(obj: T): void;
+  reset(names?: NamePath[]): void;
+  watch(name: NamePath): any;
+}
+
 export declare type IFormRender<DecoratorProps, ComponentProps> = {
-  field?: any;
+  field?: IFormField;
   layout?: Record<string, any>;
   schema?: ISchema<DecoratorProps, ComponentProps>;
   isPreview?: boolean;
   disabled?: boolean;
   urlChecked?: boolean | { reg: RegExp; errText: string };
-  metaKey?: string[];
+  metaKey?: NamePath[];
   colSpan?: number;
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;
@@ -94,4 +109,20 @@ export interface IField<DecoratorProps, ComponentProps>
     IFormRender<DecoratorProps, ComponentProps> {
   required: boolean;
   children?: any;
+}
+
+export interface IArrayField<DecoratorProps, ComponentProps>
+  extends Exclude<ISchema, 'required'>,
+    IFormRender<DecoratorProps, ComponentProps> {
+  required: boolean | string[];
+  children?: any[];
+  min?: number;
+  max?: number;
+  items?: SchemaProperties<DecoratorProps, ComponentProps>;
+  dataSource?: any[];
+  onAdd?: () => void;
+  onRemove?: (index) => void;
+  onCopy?: (index: number) => void;
+  onUp?: (index: number) => void;
+  onDown?: (index: number) => void;
 }

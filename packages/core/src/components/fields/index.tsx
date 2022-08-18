@@ -19,6 +19,7 @@ function FieldRender<DecoratorProps, ComponentProps>({
 }: IFormRender<DecoratorProps, ComponentProps>) {
   const {
     type,
+    widget,
     readOnly,
     default: defaultValue,
     hidden,
@@ -38,14 +39,23 @@ function FieldRender<DecoratorProps, ComponentProps>({
     layout,
     props: {
       ...props,
+      style: {
+        width: type !== 'boolean' ? '100%' : 'auto',
+        ...((props as any).style || {}),
+      },
     },
     decoratorProps: {
       ...decoratorProps,
+      initialValue: defaultValue,
     },
     schemaUi,
     disabled,
     ...res,
   };
+
+  if (widget) {
+    return <WidgetField {...fieldProps} />;
+  }
 
   let Render: any = null;
   switch (type) {
@@ -58,6 +68,7 @@ function FieldRender<DecoratorProps, ComponentProps>({
       Render = <ArrayField {...fieldProps} />;
       break;
     case 'boolean':
+      fieldProps.decoratorProps.valuePropName = 'checked';
       Render = <BooleanField {...fieldProps} />;
       break;
     case 'number':

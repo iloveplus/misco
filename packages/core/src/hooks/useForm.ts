@@ -1,15 +1,5 @@
 import { Form } from 'antd';
-import { FormInstance } from 'antd/es/form/Form';
-import { NamePath } from 'antd/es/form/interface';
-
-interface IFormField extends FormInstance {
-  getValue<T>(name: NamePath): T;
-  setValue<T>(name: NamePath, value: T): void;
-  getValues<T>(names: NamePath[], filterFunc?: (meta: any) => boolean): T;
-  setValues(obj: any): void;
-  setValues<T>(obj: T): void;
-  reset(names?: NamePath[]): void;
-}
+import { IFormField, NamePath } from 'typings';
 
 interface IUseFormProps {
   watch: Record<string, (value: any, key: string) => void>;
@@ -18,19 +8,6 @@ interface IUseFormProps {
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
   const { watch } = options || {};
-
-  // 监听值变化
-  if (watch && typeof watch === 'object') {
-    Object.keys(watch).forEach((key) => {
-      const watchValue = Form.useWatch(key.split('.'), form);
-
-      if (typeof watch[key] === 'function') {
-        watch[key](watchValue, key);
-      } else {
-        console.warn('watch 必须为函数回调');
-      }
-    });
-  }
 
   const fieldOptions = {
     getValue: function <T>(name: NamePath) {
@@ -48,7 +25,23 @@ const useForm = (options?: IUseFormProps): IFormField => {
     reset: function (names?: NamePath[]) {
       form.resetFields(names);
     },
+    watch: function (name: NamePath) {
+      return Form.useWatch(name, form);
+    },
   };
+
+  // 监听值变化
+  if (watch && typeof watch === 'object') {
+    Object.keys(watch).forEach((key) => {
+      const watchValue = fieldOptions.watch(key.split('.'));
+
+      if (typeof watch[key] === 'function') {
+        watch[key](watchValue, key);
+      } else {
+        console.warn('watch 必须为函数回调');
+      }
+    });
+  }
 
   return {
     ...form,

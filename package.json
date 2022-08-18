@@ -16,6 +16,7 @@
     "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\""
   },
   "devDependencies": {
+    "@ant-design/icons": "^4.7.0",
     "@changesets/cli": "^2.24.3",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",

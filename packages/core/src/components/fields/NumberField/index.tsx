@@ -1,18 +1,20 @@
 import React from 'react';
-import { Button, Checkbox, Form, Input } from 'antd';
+import { InputNumber } from 'antd';
 import { IField } from 'typings';
+import FormItemWidget from '../../widgets/FormItem';
 
-function NumberField<DecoratorProps, ComponentProps>({
-  schema = {},
-  schemaUi = {},
-  layout = {},
-  field,
-  metaKey,
-  isPreview,
-  disabled,
-  ...options
-}: IField<DecoratorProps, ComponentProps>) {
-  return <div>NumberField</div>;
+function NumberField<DecoratorProps, ComponentProps>(props: IField<DecoratorProps, ComponentProps>) {
+  const { maximum, minimum, multipleOf, props: compProps = {} } = props;
+
+  maximum !== undefined && (compProps.max = maximum);
+  minimum !== undefined && (compProps.min = minimum);
+  multipleOf !== undefined && (compProps.step = multipleOf);
+
+  return (
+    <FormItemWidget {...props}>
+      <InputNumber {...compProps} />
+    </FormItemWidget>
+  );
 }
 
 export default NumberField;
