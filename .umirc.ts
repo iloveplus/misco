@@ -1,7 +1,5 @@
 import { defineConfig } from 'dumi';
 
-
-
 export default defineConfig({
   title: 'Misco',
   favicon: '/logo.png',
@@ -9,18 +7,18 @@ export default defineConfig({
   mode: 'site',
   publicPath: './',
   history: {
-    type: 'browser'
+    type: 'browser',
   },
   locales: [['zh-CN', '中文']],
   outputPath: 'docs-dist',
   navs: [
     {
       title: '开始',
-      path: '/getting-started'
-    }
+      path: '/getting-started',
+    },
   ],
   sitemap: {
-    hostname: 'https://www.xuzm.cn'
+    hostname: 'https://www.xuzm.cn',
   },
   extraBabelPlugins: [
     [
