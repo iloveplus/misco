@@ -22,7 +22,7 @@ export declare type SchemaProperties<DecoratorProps, ComponentProps> = Record<
   ISchema<DecoratorProps, ComponentProps>
 >;
 
-export declare type ISchema<DecoratorProps = any, ComponentProps = any> = Stringify<{
+export declare type ISchema<DecoratorProps = any, ComponentProps = any> = {
   $ref?: string;
   $schema?: string;
   title?: string;
@@ -70,7 +70,10 @@ export declare type ISchema<DecoratorProps = any, ComponentProps = any> = String
   props?: ComponentProps;
   decoratorProps?: DecoratorProps;
   hidden?: boolean | string;
-}>;
+
+  // 兼容其他写法
+  [x: string]: any;
+};
 
 export interface IFormField extends FormInstance {
   getValue<T>(name: NamePath): T;
@@ -89,7 +92,7 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   isPreview?: boolean;
   disabled?: boolean;
   urlChecked?: boolean | { reg: RegExp; errText: string };
-  metaKey?: NamePath[];
+  metaKey?: NamePath;
   colSpan?: number;
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;

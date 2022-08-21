@@ -6,8 +6,9 @@ import BooleanField from '../fields/BooleanField';
 import StringField from '../fields/StringField';
 import NumberField from '../fields/NumberField';
 import WidgetField from '../fields/WidgetField';
+import { compatXRenderSchema } from '../../utils';
 
-function FieldRender<DecoratorProps, ComponentProps>({
+function FieldRender<DecoratorProps>({
   schema = {},
   schemaUi = {},
   layout = {},
@@ -16,10 +17,14 @@ function FieldRender<DecoratorProps, ComponentProps>({
   isPreview,
   disabled,
   ...options
-}: IFormRender<DecoratorProps, ComponentProps>) {
+}: IFormRender<DecoratorProps, Record<string, any>>) {
   const {
     type,
     widget,
+    format,
+    min,
+    max,
+    placeholder,
     readOnly,
     default: defaultValue,
     hidden,
@@ -41,8 +46,11 @@ function FieldRender<DecoratorProps, ComponentProps>({
       ...props,
       style: {
         width: type !== 'boolean' ? '100%' : 'auto',
-        ...((props as any).style || {}),
+        ...(props.style || {}),
       },
+      placeholder: props.placeholder || placeholder,
+      min: props.min || min,
+      max: props.max || max,
     },
     decoratorProps: {
       ...decoratorProps,
@@ -50,11 +58,13 @@ function FieldRender<DecoratorProps, ComponentProps>({
     },
     schemaUi,
     disabled,
+    format,
     ...res,
   };
 
-  if (widget) {
-    return <WidgetField {...fieldProps} />;
+  const widgetComp = compatXRenderSchema(type, format, widget, fieldProps);
+  if (widgetComp) {
+    return <WidgetField widget={widgetComp} {...fieldProps} />;
   }
 
   let Render: any = null;

@@ -3,9 +3,8 @@ import { Form } from 'antd';
 import { IArrayField } from 'typings';
 import ArrayCardWidget from '../../widgets/ArrayCardWidget';
 
-function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
+function ArrayBaseField<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
   const { metaKey, props: _compProps = {} } = props;
-  // console.log(props, '=====array====');
 
   const compProps = {
     add: true,
@@ -61,4 +60,4 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
   );
 }
 
-export default ArrayField;
+export default ArrayBaseField;
