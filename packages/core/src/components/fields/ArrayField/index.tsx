@@ -1,11 +1,13 @@
 import React from 'react';
 import { Form } from 'antd';
 import { IArrayField } from 'typings';
-import ArrayCardWidget from '../../widgets/ArrayCardWidget';
+import ArrayBaseWidget from './base';
 
 function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
   const { metaKey, props: _compProps = {} } = props;
   // console.log(props, '=====array====');
+  const min = _compProps.min;
+  const max = _compProps.max;
 
   const compProps = {
     add: true,
@@ -23,21 +25,23 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
   return (
     <Form.List
       name={metaKey as any}
-      // rules={[
-      //   {
-      //     validator: async (_, names) => {
-      //       if (!names || names.length < 2) {
-      //         return Promise.reject(new Error('At least 2 passengers'));
-      //       } else {
-      //         console.log(names);
-      //       }
-      //     },
-      //   },
-      // ]}
+      rules={[
+        {
+          validator: async (_, names) => {
+            if (min && (!names || names.length < min)) {
+              return Promise.reject(new Error(`数组至少保留${min}项`));
+            } else if (max && (!names || names.length > max)) {
+              return Promise.reject(new Error(`数组最多保留${max}项`));
+            } else {
+              return Promise.resolve();
+            }
+          },
+        },
+      ]}
     >
       {(fields, { add, remove, move }, { errors }) => (
         <>
-          <ArrayCardWidget
+          <ArrayBaseWidget
             dataSource={fields}
             {...arrayProps}
             onAdd={() => add()}

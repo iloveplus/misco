@@ -23,7 +23,7 @@ function ArrayCardWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
   } = props;
   const context = React.useContext(ConfigContext);
   const cssPrefix = context.getPrefixCls('array-card');
-  console.log(props, context, '=====>>');
+  // console.log(props, context, '=====>>');
 
   return (
     <div className={`${cssPrefix}-list`}>
