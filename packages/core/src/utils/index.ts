@@ -1,4 +1,4 @@
-import { IField } from 'typings';
+import { IField, NamePath } from 'typings';
 
 // 转换enum为选择器等组件属性options
 export function transformEnumToOptions<DecoratorProps, ComponentProps>(props: IField<DecoratorProps, ComponentProps>) {
@@ -72,4 +72,19 @@ export function compatXRenderSchema(type: string, format: string, widget: string
   }
 
   return widget;
+}
+
+export function toArray<T>(candidate?: T | T[] | false): T[] {
+  if (candidate === undefined || candidate === false) return [];
+
+  return Array.isArray(candidate) ? candidate : [candidate];
+}
+
+export function toNamePathStr(name: NamePath) {
+  const namePath = toArray(name);
+  return namePath.join('_');
+}
+
+export function isUndefined(value: any) {
+  return value === void 0;
 }

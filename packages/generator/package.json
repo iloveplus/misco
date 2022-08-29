@@ -23,7 +23,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "father": "^4.0.0-rc.8",
+    "father": "^4.0.0",
     "webpack": "^5.74.0"
   }
 }

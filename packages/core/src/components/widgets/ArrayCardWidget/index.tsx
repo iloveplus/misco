@@ -4,6 +4,7 @@ import { IArrayField } from 'typings';
 import FieldRender from '../../fields';
 import './index.less';
 import { ArrowDownOutlined, ArrowUpOutlined, CopyOutlined, DeleteOutlined } from '@ant-design/icons';
+import CollapseWidget from '../CollapseWidget';
 
 const { ConfigContext } = ConfigProvider;
 
@@ -26,7 +27,7 @@ function ArrayCardWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
   // console.log(props, context, '=====>>');
 
   return (
-    <div className={`${cssPrefix}-list`}>
+    <CollapseWidget {...props} className={`${cssPrefix}-list`}>
       {dataSource.map((item, index) => {
         return (
           <div key={item.key} className={`${cssPrefix}-item`}>
@@ -86,7 +87,7 @@ function ArrayCardWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
           {compProps.addBtnText || '新增一条'}
         </Button>
       )}
-    </div>
+    </CollapseWidget>
   );
 }
 

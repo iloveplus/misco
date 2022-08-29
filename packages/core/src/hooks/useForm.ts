@@ -1,13 +1,19 @@
 import { Form } from 'antd';
+import { useState } from 'react';
+import { isUndefined, toNamePathStr } from '../utils';
 import { IFormField, NamePath } from 'typings';
 
 interface IUseFormProps {
-  watch: Record<string, (value: any, key: string) => void>;
+  watch?: Record<string, (value: any, key: string) => void>;
+  defaultOpenKeys?: Record<string, boolean>;
+  defaultExpandAll?: boolean;
+  expandExclusion?: boolean;
 }
 
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
-  const { watch } = options || {};
+  const { watch, defaultExpandAll, expandExclusion, defaultOpenKeys = {} } = options || {};
+  const [openKeys, setOpenKeys] = useState(defaultOpenKeys);
 
   const fieldOptions = {
     getValue: function <T>(name: NamePath) {
@@ -27,6 +33,34 @@ const useForm = (options?: IUseFormProps): IFormField => {
     },
     watch: function (name: NamePath) {
       return Form.useWatch(name, form);
+    },
+    getOpenKey: (name: NamePath) => {
+      const namePathStr = toNamePathStr(name);
+      if (defaultExpandAll && isUndefined(openKeys[namePathStr])) {
+        return true;
+      }
+
+      return openKeys[namePathStr];
+    },
+    setOpenKey: (name: Array<string | number>, value: boolean) => {
+      const parentPathStr = toNamePathStr(name.slice(0, name.length - 1));
+      let sameLevelObj = {};
+
+      if (expandExclusion) {
+        const reg = new RegExp(`^${parentPathStr}\.(\\w)+$`);
+        sameLevelObj = Object.keys(openKeys)
+          .filter((key) => reg.test(key))
+          .reduce((res: any, cur: string) => {
+            res[cur] = true;
+            return res;
+          }, {});
+      }
+
+      setOpenKeys({
+        ...openKeys,
+        ...sameLevelObj,
+        [toNamePathStr(name)]: value,
+      });
     },
   };
 

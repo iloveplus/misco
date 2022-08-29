@@ -56,9 +56,11 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
               move(index, index + 1);
             }}
           />
-          <Form.Item>
-            <Form.ErrorList errors={errors} />
-          </Form.Item>
+          {errors.length > 0 && (
+            <Form.Item>
+              <Form.ErrorList errors={errors} />
+            </Form.Item>
+          )}
         </>
       )}
     </Form.List>

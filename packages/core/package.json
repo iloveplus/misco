@@ -24,7 +24,7 @@
   },
   "devDependencies": {
     "@testing-library/dom": "^8.17.1",
-    "father": "^4.0.0-rc.8",
+    "father": "^4.0.0",
     "webpack": "^5.74.0"
   },
   "peerDependencies": {

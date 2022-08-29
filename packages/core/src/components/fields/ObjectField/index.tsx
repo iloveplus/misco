@@ -1,4 +1,5 @@
 import React from 'react';
+import CollapseWidget from '../../widgets/CollapseWidget';
 import { IObjectField } from 'typings';
 import FieldRender from '..';
 
@@ -7,9 +8,9 @@ function ObjectField<DecoratorProps, ComponentProps>(props: IObjectField<Decorat
 
   // console.log('ObjectField...', props);
   return (
-    <div>
+    <CollapseWidget {...props}>
       {Object.entries(properties).map(([key, schema]) => {
-        const _metaKey = metaKey?.length ? [...metaKey, key] : [key];
+        const _metaKey = Array.isArray(metaKey) ? [...metaKey, key] : [key];
         const _required = required instanceof Array ? required.includes(key) : required;
         return (
           <FieldRender
@@ -27,7 +28,7 @@ function ObjectField<DecoratorProps, ComponentProps>(props: IObjectField<Decorat
           />
         );
       })}
-    </div>
+    </CollapseWidget>
   );
 }
 

@@ -83,6 +83,8 @@ export interface IFormField extends FormInstance {
   setValues<T>(obj: T): void;
   reset(names?: NamePath[]): void;
   watch(name: NamePath): any;
+  getOpenKey(name: NamePath): boolean;
+  setOpenKey(name: Array<string | number>, value: boolean): void;
 }
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {
