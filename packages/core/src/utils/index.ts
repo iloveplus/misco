@@ -82,9 +82,13 @@ export function toArray<T>(candidate?: T | T[] | false): T[] {
 
 export function toNamePathStr(name: NamePath) {
   const namePath = toArray(name);
-  return namePath.join('_');
+  return namePath.join('.');
 }
 
 export function isUndefined(value: any) {
   return value === void 0;
+}
+
+export function getParentPath(path: string) {
+  return path.substring(0, path.lastIndexOf('.'));
 }

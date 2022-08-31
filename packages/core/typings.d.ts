@@ -84,7 +84,7 @@ export interface IFormField extends FormInstance {
   reset(names?: NamePath[]): void;
   watch(name: NamePath): any;
   getOpenKey(name: NamePath): boolean;
-  setOpenKey(name: Array<string | number>, value: boolean): void;
+  setOpenKey(name: NamePath, value: boolean): void;
 }
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {
@@ -94,7 +94,7 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   isPreview?: boolean;
   disabled?: boolean;
   urlChecked?: boolean | { reg: RegExp; errText: string };
-  metaKey?: NamePath;
+  metaKey?: Array<string | number>;
   colSpan?: number;
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;

@@ -252,6 +252,7 @@ const Demo = () => {
   };
 
   const field = useForm({
+    expandExclusion: true,
     watch: {
       'AllString.input': (v, k) => console.log('watch', k, v),
     },

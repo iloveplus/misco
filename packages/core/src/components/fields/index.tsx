@@ -38,7 +38,7 @@ function FieldRender<DecoratorProps>({
 
   const fieldProps: any = {
     type,
-    metaKey: typeof metaKey === 'string' ? [metaKey] : metaKey,
+    metaKey: Array.isArray(metaKey) ? metaKey : [metaKey],
     field,
     isPreview,
     layout,
