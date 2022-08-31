@@ -231,7 +231,7 @@ const Demo = () => {
         description: '对象数组嵌套功能',
         type: 'array',
         min: 2,
-        max: 5,
+        max: 8,
         items: {
           type: 'object',
           properties: {

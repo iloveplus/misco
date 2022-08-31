@@ -30,7 +30,7 @@ function ArrayTabWidget<DecoratorProps, ComponentProps>(props: IArrayField<Decor
   } = props;
   const [activeKey, setActiveKey] = useState(0);
   const context = React.useContext(ConfigContext);
-  const cssPrefix = context.getPrefixCls('array-card');
+  const cssPrefix = context.getPrefixCls('array-tab');
   const { titleType, remove: closable, ...tabCompProps } = compProps;
 
   const onChange = (key: number) => {
