@@ -235,7 +235,7 @@ const Demo = () => {
         items: {
           type: 'object',
           properties: {
-            input1: {
+            name: {
               title: '简单输入框',
               type: 'string',
             },
@@ -246,6 +246,10 @@ const Demo = () => {
               enumNames: ['早', '中', '晚'],
             },
           },
+        },
+        props: {
+          mode: 'tab',
+          titleType: 'name',
         },
       },
     },

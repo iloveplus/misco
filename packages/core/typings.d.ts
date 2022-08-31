@@ -106,7 +106,7 @@ export interface IObjectField<DecoratorProps, ComponentProps>
   extends Exclude<ISchema, 'required'>,
     IFormRender<DecoratorProps, ComponentProps> {
   required: boolean | string[];
-  children?: any[];
+  children?: any;
 }
 
 export interface IField<DecoratorProps, ComponentProps>

@@ -1,18 +1,60 @@
-import React, { useEffect } from 'react';
+import React, { isValidElement, useEffect } from 'react';
 import { IArrayField } from 'typings';
 import ArrayCardWidget from '../../widgets/ArrayCardWidget';
+import ArrayTabWidget from '../../widgets/ArrayTabWidget';
+import ArrayTableWidget from '../../widgets/ArrayTableWidget';
+import ArrayDrawerWidget from '../../widgets/ArrayDrawerWidget';
+import ArrayLineWidget from '../../widgets/ArrayLineWidget';
+
+export enum ArrayMode {
+  Card = 'card',
+  Tab = 'tab',
+  Table = 'table',
+  Drawer = 'drawer',
+  Line = 'line',
+}
 
 function ArrayBaseWidget<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
-  const { onAdd, props: compProps = {} } = props;
-  const { min } = compProps;
+  const { dataSource, min, onAdd, schemaUi, widget, props: compProps = {} } = props;
 
   useEffect(() => {
-    if (min > 0 || min === undefined) {
-      [...new Array(min || 1)].forEach(() => onAdd());
+    if (!dataSource.length && min > 0) {
+      [...new Array(min)].forEach(() => onAdd());
     }
   }, [min]);
 
-  return <ArrayCardWidget {...props} />;
+  // 处理自定义数组组件
+  const CustomArrayWidget: any = schemaUi?.[widget];
+  if (CustomArrayWidget) {
+    if (typeof CustomArrayWidget === 'function') {
+      return CustomArrayWidget(props);
+    }
+
+    if (isValidElement(CustomArrayWidget)) {
+      return React.cloneElement(CustomArrayWidget, props);
+    }
+  }
+
+  switch (compProps.mode) {
+    case ArrayMode.Tab: {
+      return <ArrayTabWidget {...props} />;
+    }
+    case ArrayMode.Table: {
+      return <ArrayTableWidget {...props} />;
+    }
+    case ArrayMode.Drawer: {
+      return <ArrayDrawerWidget {...props} />;
+    }
+    case ArrayMode.Card: {
+      return <ArrayCardWidget {...props} />;
+    }
+    case ArrayMode.Line: {
+      return <ArrayLineWidget {...props} />;
+    }
+    default: {
+      return <ArrayCardWidget {...props} />;
+    }
+  }
 }
 
 export default ArrayBaseWidget;
