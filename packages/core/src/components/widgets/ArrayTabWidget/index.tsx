@@ -67,7 +67,7 @@ function ArrayTabWidget<DecoratorProps, ComponentProps>(props: IArrayField<Decor
         activeKey={activeKey.toString()}
         onChange={onChange}
         tabBarExtraContent={
-          <Button onClick={() => onEdit('', 'add')}>
+          <Button type="primary" onClick={() => onEdit('', 'add')}>
             <PlusOutlined />
             {compProps.addBtnText || '新增一条'}
           </Button>

@@ -163,6 +163,9 @@ const Demo = () => {
       allNumber: {
         title: 'number类',
         type: 'object',
+        props: {
+          canFold: true,
+        },
         properties: {
           number1: {
             title: '数字输入框',

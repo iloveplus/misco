@@ -27,7 +27,7 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
     console.log('onArrayChange...', action, index);
   };
 
-  console.log(actionProps, '=====array====');
+  // console.log(actionProps, '=====array====');
 
   return (
     <Form.List
