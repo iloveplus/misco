@@ -242,6 +242,18 @@ const Demo = () => {
               title: '简单输入框',
               type: 'string',
             },
+            // name1: {
+            //   title: '简单输入框',
+            //   type: 'string',
+            // },
+            // name2: {
+            //   title: '简单输入框',
+            //   type: 'string',
+            // },
+            // name3: {
+            //   title: '简单输入框',
+            //   type: 'string',
+            // },
             select1: {
               title: '单选',
               type: 'string',
@@ -251,8 +263,9 @@ const Demo = () => {
           },
         },
         props: {
-          mode: 'tab',
+          mode: 'table',
           titleType: 'name',
+          // sort: false,
         },
       },
     },

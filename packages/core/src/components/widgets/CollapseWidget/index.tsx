@@ -11,7 +11,7 @@ import './index.less';
 const { Panel } = Collapse;
 
 function CollapseWidget<DecoratorProps, ComponentProps>(props: Partial<IObjectField<DecoratorProps, ComponentProps>>) {
-  const { required, metaKey, title, description, field, children, props: compProps = {} } = props;
+  const { required, metaKey, title, description, field, children, className = '', props: compProps = {} } = props;
   const context = React.useContext(ConfigContext);
   const prefixCls = context.getPrefixCls('collapse');
 
@@ -20,7 +20,7 @@ function CollapseWidget<DecoratorProps, ComponentProps>(props: Partial<IObjectFi
   const canFold = compProps.canFold;
   if (!canFold) {
     return (
-      <div className={`${prefixCls}-unfold`}>
+      <div className={`${prefixCls}-unfold ${className}`}>
         <Title title={title} description={description} prefixCls={prefixCls} required={required} />
         <div>{children}</div>
       </div>
@@ -51,7 +51,7 @@ function CollapseWidget<DecoratorProps, ComponentProps>(props: Partial<IObjectFi
   };
 
   return (
-    <div className={`${prefixCls} ${prefixCls}-icon-position-start"`} style={{ marginBottom: 10 }}>
+    <div className={`${prefixCls} ${className} ${prefixCls}-icon-position-start"`} style={{ marginBottom: 10 }}>
       <Panel {...panelProps}>{children}</Panel>
     </div>
   );

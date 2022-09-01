@@ -12,7 +12,7 @@ export const ArrayAction = {
 };
 
 function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
-  const { metaKey, isPreview, minItems = 1, maxItems, props: _compProps = {} } = props;
+  const { metaKey, isPreview, field, minItems = 1, maxItems, props: _compProps = {} } = props;
   const min = _compProps.min || minItems;
   const max = _compProps.max || maxItems;
 
@@ -24,7 +24,7 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
   }, [isPreview]);
 
   const onArrayChange = (action: string, index: number) => {
-    console.log('onArrayChange...', action, index);
+    // console.log('onArrayChange...', action, index);
   };
 
   // console.log(actionProps, '=====array====');
@@ -69,7 +69,8 @@ function ArrayField<DecoratorProps, ComponentProps>(props: IArrayField<Decorator
                 return;
               }
 
-              add(undefined, index);
+              const value = field.getFieldValue([...metaKey, index]);
+              add(value, index);
               onArrayChange(ArrayAction.Copy, index + 1);
             }}
             onRemove={(index: number) => {
