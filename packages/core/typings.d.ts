@@ -89,6 +89,7 @@ export interface IFormField extends FormInstance {
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {
   field?: IFormField;
+  name?: string;
   layout?: Record<string, any>;
   schema?: ISchema<DecoratorProps, ComponentProps>;
   isPreview?: boolean;
@@ -99,7 +100,8 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;
   onFinish?: (values: any) => void;
-  onChange?: () => void;
+  onChange?: (changedValues: any, values: any) => void;
+  onMount?: (field: IFormField) => void;
 };
 
 export interface IObjectField<DecoratorProps, ComponentProps>

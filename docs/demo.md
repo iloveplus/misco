@@ -263,7 +263,7 @@ const Demo = () => {
           },
         },
         props: {
-          mode: 'table',
+          mode: 'drawer',
           titleType: 'name',
           // sort: false,
         },

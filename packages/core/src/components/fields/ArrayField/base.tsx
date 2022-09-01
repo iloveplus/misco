@@ -3,7 +3,6 @@ import { IArrayField } from 'typings';
 import ArrayCardWidget from '../../widgets/ArrayCardWidget';
 import ArrayTabWidget from '../../widgets/ArrayTabWidget';
 import ArrayTableWidget from '../../widgets/ArrayTableWidget';
-import ArrayDrawerWidget from '../../widgets/ArrayDrawerWidget';
 import ArrayLineWidget from '../../widgets/ArrayLineWidget';
 
 export enum ArrayMode {
@@ -43,7 +42,7 @@ function ArrayBaseWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
       return <ArrayTableWidget {...props} />;
     }
     case ArrayMode.Drawer: {
-      return <ArrayDrawerWidget {...props} />;
+      return <ArrayTableWidget {...props} />;
     }
     case ArrayMode.Card: {
       return <ArrayCardWidget {...props} />;

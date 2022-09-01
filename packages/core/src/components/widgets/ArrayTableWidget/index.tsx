@@ -1,29 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, ConfigProvider, Divider, Popconfirm, Table } from 'antd';
 import { IArrayField } from 'typings';
 import FieldRender from '../../fields';
 import CollapseWidget from '../CollapseWidget';
 import Title from '../CollapseWidget/title';
 import './index.less';
+import ArrayDrawerWidget from '../ArrayDrawerWidget';
 
 const { ConfigContext } = ConfigProvider;
 
 function ArrayTableWidget<DecoratorProps, ComponentProps>(props: IArrayField<DecoratorProps, ComponentProps>) {
   const {
     dataSource,
+    metaKey,
     items,
     field,
-    layout,
     disabled,
     onAdd,
     onRemove,
     onCopy,
     onDown,
     onUp,
+    schemaUi,
     props: compProps = {},
   } = props;
   const context = React.useContext(ConfigContext);
+  const [activeKey, setActiveKey] = useState(null);
   const cssPrefix = context.getPrefixCls('array-table');
+  const isDrawer = compProps.mode === 'drawer';
   const operations = ['copy', 'sort', 'remove'].map((item) => compProps[item]).filter(Boolean);
   const btnProps: any = {
     disabled,
@@ -43,7 +47,7 @@ function ArrayTableWidget<DecoratorProps, ComponentProps>(props: IArrayField<Dec
         schema={{ ...schema, title: '' }}
         field={field}
         metaKey={[item.name, key]}
-        layout={layout}
+        layout={{ style: { marginBottom: 0 } }}
         disabled={disabled}
       />
     ),
@@ -55,10 +59,15 @@ function ArrayTableWidget<DecoratorProps, ComponentProps>(props: IArrayField<Dec
       key: 'op',
       fixed: 'right',
       align: 'center',
-      width: 250,
+      width: 280,
       render: (_: any, record: any, index: number) => (
         <React.Fragment>
           {[
+            isDrawer && (
+              <Button {...btnProps} key="edit" onClick={() => setActiveKey([...metaKey, record.name])}>
+                编辑
+              </Button>
+            ),
             compProps.copy && (
               <Button {...btnProps} key="copy" onClick={() => onCopy(index)}>
                 复制
@@ -107,6 +116,7 @@ function ArrayTableWidget<DecoratorProps, ComponentProps>(props: IArrayField<Dec
     <CollapseWidget {...props} className={`${cssPrefix}-list`}>
       <Table
         bordered
+        size="small"
         columns={columns}
         dataSource={dataSource}
         scroll={columns.length > 5 ? { x: 1500, y: 300 } : {}}
@@ -123,6 +133,14 @@ function ArrayTableWidget<DecoratorProps, ComponentProps>(props: IArrayField<Dec
           }
           return null;
         }}
+      />
+      <ArrayDrawerWidget
+        {...(compProps.drawerProps || {})}
+        schemaUi={schemaUi}
+        field={field}
+        schema={items}
+        metaKey={activeKey}
+        onClose={() => setActiveKey(null)}
       />
     </CollapseWidget>
   );

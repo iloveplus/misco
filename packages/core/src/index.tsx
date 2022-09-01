@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, Form } from 'antd';
 import { IFormRender } from 'typings';
 import FieldRender from './components/fields';
@@ -6,7 +6,20 @@ import useForm from './hooks/useForm';
 import { ConfigProvider } from 'antd';
 
 function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<DecoratorProps, ComponentProps>) {
-  const { onFinish, field = useForm(), hasSubmitBtn, layout = {} } = props;
+  const {
+    hasSubmitBtn,
+    layout = {},
+    metaKey = [],
+    name = 'schemaForm',
+    field = useForm(),
+    onFinish = () => {},
+    onMount = () => {},
+    onChange = () => {},
+  } = props;
+
+  useEffect(() => {
+    onMount(field);
+  }, []);
 
   return (
     <ConfigProvider>
@@ -14,13 +27,13 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
         <Form
           {...layout}
           form={field}
-          name="schemaForm"
+          name={name}
           requiredMark
           onFinish={onFinish}
-          onValuesChange={console.log}
+          onValuesChange={onChange}
           // onFieldsChange={(...res) => console.log('onFieldsChange...', ...res)}
         >
-          <FieldRender {...props} />
+          <FieldRender {...props} metaKey={metaKey} />
           {hasSubmitBtn && (
             <Form.Item>
               <Button type="primary" htmlType="submit">
