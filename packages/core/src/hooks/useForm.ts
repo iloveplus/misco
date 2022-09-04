@@ -1,12 +1,11 @@
 import { Form } from 'antd';
-import { useState } from 'react';
-import { getNamePath, getParentPath, isUndefined } from '../utils';
+import { getNamePath } from '../utils';
 import { IFormField, IUseFormProps, NamePath } from 'typings';
+import useCollapse from './useCollapse';
 
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
-  const { defaultExpandAll, expandExclusion, defaultOpenKeys = {} } = options || {};
-  const [openKeys, setOpenKeys] = useState(defaultOpenKeys);
+  const { getOpenKey, setOpenKey } = useCollapse(options);
 
   const fieldOptions = {
     __options: options,
@@ -16,7 +15,7 @@ const useForm = (options?: IUseFormProps): IFormField => {
     setValue: function <T>(path: string, value: T) {
       form.setFieldValue(getNamePath(path), value);
     },
-    getValues: function <T>(names: NamePath[], filterFunc?: (meta: any) => boolean) {
+    getValues: function <T>(names?: NamePath[], filterFunc?: (meta: any) => boolean) {
       return form.getFieldsValue(names, filterFunc);
     },
     setValues: function (values: Record<string, any>) {
@@ -28,33 +27,8 @@ const useForm = (options?: IUseFormProps): IFormField => {
     watch: function (name: NamePath) {
       return Form.useWatch(name, form);
     },
-    getOpenKey: (name: string) => {
-      if (defaultExpandAll && isUndefined(openKeys[name])) {
-        return true;
-      }
-
-      return openKeys[name];
-    },
-    setOpenKey: (name: string, value: boolean) => {
-      let sameLevelObj = {};
-
-      if (expandExclusion) {
-        const prefix = getParentPath(name);
-
-        sameLevelObj = Object.keys(openKeys)
-          .filter((key) => getParentPath(key) === prefix)
-          .reduce((res: any, cur: string) => {
-            res[cur] = false;
-            return res;
-          }, {});
-      }
-
-      setOpenKeys({
-        ...openKeys,
-        ...sameLevelObj,
-        [name]: value,
-      });
-    },
+    getOpenKey,
+    setOpenKey,
   };
 
   return {

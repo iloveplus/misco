@@ -82,17 +82,20 @@ export interface IUseFormProps {
   expandExclusion?: boolean;
 }
 
-export interface IFormField extends FormInstance {
+export interface ICollapse {
+  getOpenKey(name: string): boolean;
+  setOpenKey(name: string, value: boolean): void;
+}
+
+export interface IFormField extends FormInstance, ICollapse {
   __options: IUseFormProps;
   getValue<T>(name: string): T;
   setValue<T>(name: string, value: T): void;
-  getValues<T>(names: NamePath[], filterFunc?: (meta: any) => boolean): T;
+  getValues<T>(names?: NamePath[], filterFunc?: (meta: any) => boolean): T;
   setValues(obj: any): void;
   setValues<T>(obj: T): void;
   reset(names?: NamePath[]): void;
   watch(name: NamePath): any;
-  getOpenKey(name: NamePath): boolean;
-  setOpenKey(name: NamePath, value: boolean): void;
 }
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {

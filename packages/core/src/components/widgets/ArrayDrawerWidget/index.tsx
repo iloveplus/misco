@@ -12,7 +12,10 @@ function ArrayDrawerWidget<DecoratorProps, ComponentProps>(props: IArrayField<De
   const closeDrawer = () => {
     field.setFieldValue(metaKey, drawerRef.current);
     onClose();
+    drawerRef.current = {};
   };
+
+  console.log('ArrayDrawerWidget..', data);
 
   return (
     <Drawer title="编辑" width="50vw" placement="right" {...drawerProps} onClose={closeDrawer} visible={!!metaKey}>
@@ -22,6 +25,7 @@ function ArrayDrawerWidget<DecoratorProps, ComponentProps>(props: IArrayField<De
         metaKey={[]}
         name="array-drawer"
         onMount={(f) => {
+          console.log('onMount..', data);
           f.setFieldsValue(data);
         }}
         onChange={(v, values) => {

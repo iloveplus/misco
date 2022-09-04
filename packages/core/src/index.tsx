@@ -20,6 +20,10 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
 
   useEffect(() => {
     onMount(field);
+
+    return () => {
+      field.resetFields();
+    };
   }, []);
 
   const watch = props.watch || field.__options?.watch || {};
