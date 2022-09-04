@@ -1,26 +1,20 @@
 import { Form } from 'antd';
 import { useState } from 'react';
-import { getParentPath, isUndefined } from '../utils';
-import { IFormField, NamePath } from 'typings';
-
-interface IUseFormProps {
-  watch?: Record<string, (value: any, key: string) => void>;
-  defaultOpenKeys?: Record<string, boolean>;
-  defaultExpandAll?: boolean;
-  expandExclusion?: boolean;
-}
+import { getNamePath, getParentPath, isUndefined } from '../utils';
+import { IFormField, IUseFormProps, NamePath } from 'typings';
 
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
-  const { watch, defaultExpandAll, expandExclusion, defaultOpenKeys = {} } = options || {};
+  const { defaultExpandAll, expandExclusion, defaultOpenKeys = {} } = options || {};
   const [openKeys, setOpenKeys] = useState(defaultOpenKeys);
 
   const fieldOptions = {
-    getValue: function <T>(name: NamePath) {
-      return form.getFieldValue(name);
+    __options: options,
+    getValue: function (path: string) {
+      return form.getFieldValue(getNamePath(path));
     },
-    setValue: function <T>(name: NamePath, value: T) {
-      form.setFieldValue(name, value);
+    setValue: function <T>(path: string, value: T) {
+      form.setFieldValue(getNamePath(path), value);
     },
     getValues: function <T>(names: NamePath[], filterFunc?: (meta: any) => boolean) {
       return form.getFieldsValue(names, filterFunc);
@@ -62,19 +56,6 @@ const useForm = (options?: IUseFormProps): IFormField => {
       });
     },
   };
-
-  // 监听值变化
-  if (watch && typeof watch === 'object') {
-    Object.keys(watch).forEach((key) => {
-      const watchValue = fieldOptions.watch(key.split('.'));
-
-      if (typeof watch[key] === 'function') {
-        watch[key](watchValue, key);
-      } else {
-        console.warn('watch 必须为函数回调');
-      }
-    });
-  }
 
   return {
     ...form,

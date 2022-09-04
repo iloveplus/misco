@@ -4,6 +4,7 @@ import { IFormRender } from 'typings';
 import FieldRender from './components/fields';
 import useForm from './hooks/useForm';
 import { ConfigProvider } from 'antd';
+import Watcher from './hooks/watcher';
 
 function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<DecoratorProps, ComponentProps>) {
   const {
@@ -21,6 +22,9 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
     onMount(field);
   }, []);
 
+  const watch = props.watch || field.__options?.watch || {};
+  const watchList = Object.keys(watch);
+
   return (
     <ConfigProvider>
       <Form.Provider>
@@ -33,6 +37,10 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
           onValuesChange={onChange}
           // onFieldsChange={(...res) => console.log('onFieldsChange...', ...res)}
         >
+          {watchList.length > 0 &&
+            watchList.map((item) => {
+              return <Watcher key={item} watchKey={item} watch={watch} field={field} />;
+            })}
           <FieldRender {...props} metaKey={metaKey} />
           {hasSubmitBtn && (
             <Form.Item>

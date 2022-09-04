@@ -75,9 +75,17 @@ export declare type ISchema<DecoratorProps = any, ComponentProps = any> = {
   [x: string]: any;
 };
 
+export interface IUseFormProps {
+  watch?: Record<string, (value: any, key: string) => void>;
+  defaultOpenKeys?: Record<string, boolean>;
+  defaultExpandAll?: boolean;
+  expandExclusion?: boolean;
+}
+
 export interface IFormField extends FormInstance {
-  getValue<T>(name: NamePath): T;
-  setValue<T>(name: NamePath, value: T): void;
+  __options: IUseFormProps;
+  getValue<T>(name: string): T;
+  setValue<T>(name: string, value: T): void;
   getValues<T>(names: NamePath[], filterFunc?: (meta: any) => boolean): T;
   setValues(obj: any): void;
   setValues<T>(obj: T): void;
@@ -99,6 +107,7 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   colSpan?: number;
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;
+  watch?: Record<string, any>;
   onFinish?: (values: any) => void;
   onChange?: (changedValues: any, values: any) => void;
   onMount?: (field: IFormField) => void;

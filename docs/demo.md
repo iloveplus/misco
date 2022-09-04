@@ -275,6 +275,7 @@ const Demo = () => {
     expandExclusion: true,
     watch: {
       'AllString.input': (v, k) => console.log('watch', k, v),
+      'AllString.color': console.log,
     },
   });
   // console.log(field, '======');
