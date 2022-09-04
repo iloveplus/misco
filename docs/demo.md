@@ -23,6 +23,9 @@ const Demo = () => {
               title: '是否通过',
               type: 'boolean',
               hidden: '{{rootValue.switch === true}}',
+              props: {
+                disabled: '{{formData.allBoolean.switch === true}}',
+              },
             },
             switch: {
               title: '开关控制',

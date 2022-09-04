@@ -6,10 +6,12 @@ import useForm from './hooks/useForm';
 import { ConfigProvider } from 'antd';
 import Watcher from './hooks/watcher';
 import { FormContext } from './utils/context';
+import { collectDependencies } from './utils/dependencies';
 
 function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<DecoratorProps, ComponentProps>) {
   const {
     hasSubmitBtn,
+    schema,
     layout = {},
     metaKey = [],
     name = 'schemaForm',
@@ -31,12 +33,13 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
   const watchList = Object.keys(watch);
   const namePath = Array.isArray(metaKey) ? metaKey : [metaKey];
 
-  const formData = useMemo(() => field.formData, [JSON.stringify(field.formData)]);
+  const dependenciesMap = useMemo(() => collectDependencies(schema), [JSON.stringify(schema)]);
+  console.log('dependenciesMap...', dependenciesMap);
 
   return (
     <ConfigProvider>
       <Form.Provider>
-        <FormContext.Provider value={formData}>
+        <FormContext.Provider value={dependenciesMap}>
           <Form
             {...layout}
             form={field}
