@@ -94,8 +94,10 @@ export interface IFormField extends FormInstance, ICollapse {
   getValues<T>(names?: NamePath[], filterFunc?: (meta: any) => boolean): T;
   setValues(obj: any): void;
   setValues<T>(obj: T): void;
+  setState?(obj: any): any;
   reset(names?: NamePath[]): void;
   watch(name: NamePath): any;
+  formData: any;
 }
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {
@@ -107,6 +109,7 @@ export declare type IFormRender<DecoratorProps, ComponentProps> = {
   disabled?: boolean;
   urlChecked?: boolean | { reg: RegExp; errText: string };
   metaKey?: Array<string | number>;
+  namePath?: Array<string | number>;
   colSpan?: number;
   hasSubmitBtn?: boolean;
   schemaUi?: Record<string, any>;

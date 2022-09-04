@@ -7,6 +7,7 @@ import StringField from '../fields/StringField';
 import NumberField from '../fields/NumberField';
 import WidgetField from '../fields/WidgetField';
 import { compatXRenderSchema } from '../../utils';
+import { evaluatePropsValue } from '../../utils/parseSchema';
 
 function FieldRender<DecoratorProps>({
   schema = {},
@@ -14,6 +15,7 @@ function FieldRender<DecoratorProps>({
   layout = {},
   field,
   metaKey,
+  namePath,
   isPreview,
   disabled,
   ...options
@@ -27,8 +29,8 @@ function FieldRender<DecoratorProps>({
     placeholder,
     readOnly,
     default: defaultValue,
-    hidden,
     required,
+    hidden,
     items = {},
     properties = {},
     decoratorProps = {},
@@ -36,9 +38,16 @@ function FieldRender<DecoratorProps>({
     ...res
   } = schema;
 
+  const formData = field.formData;
+  const isHidden = evaluatePropsValue(hidden, formData, namePath);
+  if (isHidden) {
+    return null;
+  }
+
   const fieldProps: any = {
     type,
-    metaKey: Array.isArray(metaKey) ? metaKey : [metaKey],
+    metaKey,
+    namePath,
     field,
     isPreview,
     layout,
@@ -67,7 +76,7 @@ function FieldRender<DecoratorProps>({
     return <WidgetField widget={widgetComp} {...fieldProps} />;
   }
 
-  let Render: any = null;
+  let Render: any = React.Fragment;
   switch (type) {
     case 'object':
       fieldProps.properties = properties;

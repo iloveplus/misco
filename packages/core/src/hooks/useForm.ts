@@ -2,10 +2,14 @@ import { Form } from 'antd';
 import { getNamePath } from '../utils';
 import { IFormField, IUseFormProps, NamePath } from 'typings';
 import useCollapse from './useCollapse';
+import useSet from './useSet';
 
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
   const { getOpenKey, setOpenKey } = useCollapse(options);
+  const [state, setState] = useSet({
+    formData: {},
+  });
 
   const fieldOptions = {
     __options: options,
@@ -29,6 +33,8 @@ const useForm = (options?: IUseFormProps): IFormField => {
     },
     getOpenKey,
     setOpenKey,
+    ...state,
+    setState,
   };
 
   return {

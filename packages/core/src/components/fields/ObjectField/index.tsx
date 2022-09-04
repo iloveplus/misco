@@ -4,7 +4,7 @@ import { IObjectField } from 'typings';
 import FieldRender from '..';
 
 function ObjectField<DecoratorProps, ComponentProps>(props: IObjectField<DecoratorProps, ComponentProps>) {
-  const { metaKey, required, properties = {}, decoratorProps = {}, ...res } = props;
+  const { metaKey, namePath, required, properties = {}, decoratorProps = {}, ...res } = props;
 
   // console.log('ObjectField...', props);
   return (
@@ -16,6 +16,7 @@ function ObjectField<DecoratorProps, ComponentProps>(props: IObjectField<Decorat
           <FieldRender
             key={key}
             metaKey={_metaKey}
+            namePath={Array.isArray(namePath) ? [...namePath, key] : [key]}
             schema={{
               required: _required,
               ...schema,

@@ -22,6 +22,7 @@ const Demo = () => {
             radio: {
               title: '是否通过',
               type: 'boolean',
+              hidden: '{{rootValue.switch === true}}',
             },
             switch: {
               title: '开关控制',

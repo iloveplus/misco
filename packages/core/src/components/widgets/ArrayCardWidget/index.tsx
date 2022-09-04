@@ -15,6 +15,7 @@ function ArrayCardWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
     field,
     layout,
     disabled,
+    namePath,
     onAdd,
     onRemove,
     onCopy,
@@ -76,7 +77,14 @@ function ArrayCardWidget<DecoratorProps, ComponentProps>(props: IArrayField<Deco
             </div>
 
             <div className={`${cssPrefix}-body`}>
-              <FieldRender schema={items} field={field} metaKey={[item.name]} layout={layout} disabled={disabled} />
+              <FieldRender
+                schema={items}
+                field={field}
+                metaKey={[item.name]}
+                namePath={[...namePath, item.name]}
+                layout={layout}
+                disabled={disabled}
+              />
             </div>
           </div>
         );
