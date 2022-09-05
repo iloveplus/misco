@@ -1,6 +1,7 @@
 import cloneDeep from 'lodash/cloneDeep';
-import { isFunction, isObject } from './parseSchema';
+import { isObject, isFunction } from '.';
 
+// 主动收集依赖关系 --- 废弃（这种方法处理太复杂）
 export function collectDependencies(_schema: any, metaKey: any = [], result = new Map()) {
   const schema = cloneDeep(_schema);
 

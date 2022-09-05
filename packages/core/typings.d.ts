@@ -1,5 +1,5 @@
 import { FormInstance } from 'antd/es/form/Form';
-import { NamePath } from 'antd/es/form/interface';
+import { NamePath, InternalNamePath } from 'antd/es/form/interface';
 
 export { NamePath };
 
@@ -94,10 +94,17 @@ export interface IFormField extends FormInstance, ICollapse {
   getValues<T>(names?: NamePath[], filterFunc?: (meta: any) => boolean): T;
   setValues(obj: any): void;
   setValues<T>(obj: T): void;
-  setState?(obj: any): any;
   reset(names?: NamePath[]): void;
   watch(name: NamePath): any;
-  formData: any;
+  calculatePropsValue(namePath: InternalNamePath, props: Record<string, any>): any;
+
+  /**
+   * Form component should register some content into store.
+   * We pass the `HOOK_MARK` as key to avoid user call the function.
+   */
+  getInternalHooks: (secret: string) => InternalHooks | null;
+  /** @private Internal usage. Do not use it in your production */
+  _init?: boolean;
 }
 
 export declare type IFormRender<DecoratorProps, ComponentProps> = {

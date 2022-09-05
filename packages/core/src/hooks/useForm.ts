@@ -1,17 +1,20 @@
+import { InternalNamePath } from 'antd/es/form/interface';
 import { Form } from 'antd';
 import { getNamePath } from '../utils';
 import { IFormField, IUseFormProps, NamePath } from 'typings';
 import useCollapse from './useCollapse';
 import useSet from './useSet';
+import useCalculatePropValue from './useCalculatePropValue';
 
 const useForm = (options?: IUseFormProps): IFormField => {
   const [form] = Form.useForm();
   const { getOpenKey, setOpenKey } = useCollapse(options);
+
   const [state, setState] = useSet({
     formData: {},
   });
 
-  const fieldOptions = {
+  const fieldOptions: IFormField = {
     __options: options,
     getValue: function (path: string) {
       return form.getFieldValue(getNamePath(path));
@@ -31,10 +34,12 @@ const useForm = (options?: IUseFormProps): IFormField => {
     watch: function (name: NamePath) {
       return Form.useWatch(name, form);
     },
+    calculatePropsValue: function (namePath: InternalNamePath, props: any) {
+      return useCalculatePropValue(namePath, props, form as IFormField) || {};
+    },
     getOpenKey,
     setOpenKey,
     ...state,
-    setState,
   };
 
   return {

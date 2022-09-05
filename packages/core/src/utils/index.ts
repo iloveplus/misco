@@ -96,3 +96,23 @@ export function getParentPath(path: string) {
 export function getNamePath(path: string): NamePath {
   return typeof path === 'string' ? path.split('.') : path;
 }
+
+export function getType(v: any) {
+  return /\[object (\w+?)\]/.exec(Object.prototype.toString.call(v))?.[1];
+}
+
+export const isObject = (v: any) => {
+  return getType(v) === 'Object';
+};
+
+export function isFunction(func: any) {
+  if (typeof func === 'function') {
+    return func;
+  }
+
+  if (typeof func === 'string' && /^{{.*}}$/.test(func)) {
+    return func.substring(2, func.length - 2);
+  }
+
+  return false;
+}

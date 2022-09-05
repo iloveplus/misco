@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { IFormRender } from 'typings';
 import ArrayField from '../fields/ArrayField';
 import ObjectField from '../fields/ObjectField';
@@ -7,9 +7,8 @@ import StringField from '../fields/StringField';
 import NumberField from '../fields/NumberField';
 import WidgetField from '../fields/WidgetField';
 import { compatXRenderSchema } from '../../utils';
-import { evaluatePropsValue } from '../../utils/parseSchema';
 
-function FieldRender<DecoratorProps>({
+function FieldRender({
   schema = {},
   schemaUi = {},
   layout = {},
@@ -19,7 +18,7 @@ function FieldRender<DecoratorProps>({
   isPreview,
   disabled,
   ...options
-}: IFormRender<DecoratorProps, Record<string, any>>) {
+}: IFormRender<Record<string, any>, Record<string, any>>) {
   const {
     type,
     widget,
@@ -38,8 +37,27 @@ function FieldRender<DecoratorProps>({
     ...res
   } = schema;
 
-  const formData = field.formData;
-  const isHidden = evaluatePropsValue(hidden, formData, namePath);
+  const calPropsValue = field.calculatePropsValue(namePath, {
+    hidden,
+    required,
+    readOnly: readOnly || props.readOnly,
+    disabled: disabled || props.disabled,
+    decoratorHidden: decoratorProps.hidden,
+    defaultValue: defaultValue || props.defaultValue,
+  });
+
+  // console.log(field, calPropsValue, '====>>>');
+
+  // 更新默认值
+  const calDefault = calPropsValue.defaultValue;
+  useEffect(() => {
+    if (typeof calDefault !== 'undefined') {
+      field.setFieldValue(namePath, calDefault);
+    }
+  }, [calDefault]);
+
+  // 处理隐藏逻辑
+  const isHidden = calPropsValue.hidden;
   if (isHidden) {
     return null;
   }
@@ -51,6 +69,7 @@ function FieldRender<DecoratorProps>({
     field,
     isPreview,
     layout,
+    required: calPropsValue.required,
     props: {
       ...props,
       style: {
@@ -60,13 +79,18 @@ function FieldRender<DecoratorProps>({
       placeholder: props.placeholder || placeholder,
       min: props.min || min,
       max: props.max || max,
+      readOnly: calPropsValue.readOnly,
+      disabled: calPropsValue.disabled,
     },
     decoratorProps: {
       ...decoratorProps,
-      initialValue: defaultValue,
+      ...options,
+      initialValue: calDefault,
+      hidden: calPropsValue.decoratorHidden,
+      rules: decoratorProps.rules || [],
     },
     schemaUi,
-    disabled,
+    disabled: calPropsValue.disabled,
     format,
     ...res,
   };

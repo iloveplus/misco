@@ -48,7 +48,6 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
             onFinish={onFinish}
             onValuesChange={(changedValues, values) => {
               onChange(changedValues, values);
-              field.setState({ formData: values });
             }}
             // onFieldsChange={(...res) => console.log('onFieldsChange...', ...res)}
           >
