@@ -3,9 +3,14 @@ import { Input, Popover } from 'antd';
 import { FileImageOutlined } from '@ant-design/icons';
 import { IField } from 'typings';
 import FormItemWidget from '../../widgets/FormItem';
+import WidgetField from '../WidgetField';
 
 function StringField<DecoratorProps, ComponentProps>(props: IField<DecoratorProps, ComponentProps>) {
-  const { metaKey, field, format, props: compProps = {} } = props;
+  const { widget, metaKey, field, format, props: compProps = {} } = props;
+
+  if (widget) {
+    return <WidgetField {...props} />;
+  }
 
   const renderAddonAfter = () => {
     if (format?.startsWith('image')) {

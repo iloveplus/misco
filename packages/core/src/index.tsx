@@ -12,29 +12,31 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
   const {
     hasSubmitBtn,
     schema,
+    field,
     layout = {},
     metaKey = [],
     name = 'schemaForm',
-    field = useForm(),
     onFinish = () => {},
     onMount = () => {},
     onChange = () => {},
   } = props;
 
+  const form = field || useForm();
+
   useEffect(() => {
-    onMount(field);
+    onMount(form);
 
     return () => {
-      field.resetFields();
+      form.resetFields();
     };
   }, []);
 
-  const watch = props.watch || field.__options?.watch || {};
+  const watch = props.watch || form.__options?.watch || {};
   const watchList = Object.keys(watch);
   const namePath = Array.isArray(metaKey) ? metaKey : [metaKey];
 
   const dependenciesMap = useMemo(() => collectDependencies(schema), [JSON.stringify(schema)]);
-  console.log('dependenciesMap...', dependenciesMap);
+  // console.log('dependenciesMap...', form, dependenciesMap);
 
   return (
     <ConfigProvider>
@@ -42,7 +44,7 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
         <FormContext.Provider value={dependenciesMap}>
           <Form
             {...layout}
-            form={field}
+            form={form}
             name={name}
             requiredMark
             onFinish={onFinish}
@@ -53,9 +55,9 @@ function FormRender<DecoratorProps, ComponentProps>(props: IFormRender<Decorator
           >
             {watchList.length > 0 &&
               watchList.map((item) => {
-                return <Watcher key={item} watchKey={item} watch={watch} field={field} />;
+                return <Watcher key={item} watchKey={item} watch={watch} field={form} />;
               })}
-            <FieldRender {...props} metaKey={namePath} namePath={namePath} />
+            <FieldRender {...props} field={form} metaKey={namePath} namePath={namePath} />
             {hasSubmitBtn && (
               <Form.Item>
                 <Button type="primary" htmlType="submit">

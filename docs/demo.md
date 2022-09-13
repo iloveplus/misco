@@ -22,9 +22,8 @@ const Demo = () => {
             radio: {
               title: '是否通过',
               type: 'boolean',
-              hidden: '{{rootValue.switch === true}}',
               props: {
-                disabled: '{{formData.allBoolean.switch === true}}',
+                disabled: '{{rootValue.switch === true}}',
               },
             },
             switch: {
@@ -36,6 +35,7 @@ const Demo = () => {
               title: '简单文本编辑框',
               type: 'string',
               format: 'textarea',
+              hidden: '{{rootValue.switch === true}}',
             },
           },
         },

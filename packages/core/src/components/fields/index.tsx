@@ -97,7 +97,7 @@ function FieldRender({
 
   const widgetComp = compatXRenderSchema(type, format, widget, fieldProps);
   if (widgetComp) {
-    return <WidgetField widget={widgetComp} {...fieldProps} />;
+    fieldProps.widget = widgetComp;
   }
 
   let Render: any = React.Fragment;
